@@ -44,12 +44,12 @@ A RESTful API for managing books and authors built with Node.js, Express, TypeSc
 - `GET /authors/:id` - Get author by ID
 - `POST /authors` - Create new author
 - `PUT /authors/:id` - Update author
-
 ### Books
 - `GET /books` - Get all books
 - `GET /books/:id` - Get book by ID
 - `POST /books` - Create new book
-- `PUT /books/:id` - Update book
+- `PUT /books/:id` - Update book (Only add new authors cannot delete previous)
+- `DELETE /books/:id` - Delete the book from the database
 
 ## Project Structure
 
