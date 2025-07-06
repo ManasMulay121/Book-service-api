@@ -5,9 +5,8 @@ A RESTful API for managing books and authors built with Node.js, Express, TypeSc
 ## Features
 
 - **Authors Management**: Create, read, update authors
-- **Books Management**: Create, read, update books
+- **Books Management**: Create, read, update books, delete books
 - **Database**: PostgreSQL with UUID primary keys
-- **TypeScript**: Full type safety and modern JavaScript features
 
 ## Tech Stack
 
@@ -26,7 +25,7 @@ A RESTful API for managing books and authors built with Node.js, Express, TypeSc
 2. **Set up environment variables**
    Create a `.env` file in the root directory:
    ```
-   PORT=3000
+   PORT=8080
    DATABASE_URL=your_postgresql_connection_string
    ```
 
@@ -67,14 +66,13 @@ src/
 ## Scripts
 
 - `npm run serve` - Start development server with nodemon
-- `npm start` - Start application
 
-## License
+## Usage Examples
 
-ISC
+**Create Author:**
 
 ```bash
-POST http://localhost:7999/authors
+POST http://localhost:8080/authors
 Content-Type: application/json
 
 {
@@ -86,33 +84,30 @@ Content-Type: application/json
 **Create Book:**
 
 ```bash
-POST http://localhost:7999/books
+POST http://localhost:8080/books
 Content-Type: application/json
 
 {
   "title": "Harry Potter and the Philosopher's Stone",
   "publishedYear": 1997,
-  "authorIds": [1]
+  "authorIds": ["550e8400-e29b-41d4-a716-446655440000", "6ba7b810-9dad-11d1-80b4-00c04fd430c8"]
 }
 ```
 
-## 🗂️ Data Models
+## Data Models
 
 ```typescript
 interface Author {
-    _id: number;
+    author_id: string;  // UUID
     name: string;
     bio?: string;
 }
 
 interface Book {
-    _id: number;
+    book_id: string;    // UUID
     title: string;
-    authorIds: number[];
-    publishedYear: number;
+    author_ids: string[];  // Array of UUIDs
+    published_year: number;
 }
 ```
 
----
-
-Built with ❤️ for learning Node.js, TypeScript, and REST API development.
