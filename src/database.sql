@@ -1,9 +1,4 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
-DROP TABLE IF EXISTS book_author;
-DROP TABLE IF EXISTS book;
-DROP TABLE IF EXISTS author;
-
 CREATE TABLE author (
     author_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(100) NOT NULL,
