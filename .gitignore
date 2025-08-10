@@ -1,0 +1,6 @@
+.env
+server/.dockerignore
+server/dist
+server/node_modules
+server/pgdata
+container/
