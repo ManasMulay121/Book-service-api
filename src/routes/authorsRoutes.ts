@@ -1,5 +1,10 @@
 import express from 'express';
-import { getAuthorById, getAuthors, createAuthor, updateAuthor} from '../controllers/authorsController';
+import {
+  getAuthorById,
+  getAuthors,
+  createAuthor,
+  updateAuthor,
+} from '../controllers/authorsController';
 // import {updateAuthor, deleteAuthor} from '../controllers/authorsController'
 const router = express.Router();
 

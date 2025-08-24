@@ -1,7 +1,7 @@
-import express from "express";
-import dotenv from "dotenv";
-import authorsRoutes from "./routes/authorsRoutes";
-import booksRoutes from "./routes/booksRoutes";
+import express from 'express';
+import dotenv from 'dotenv';
+import authorsRoutes from './routes/authorsRoutes';
+import booksRoutes from './routes/booksRoutes';
 
 dotenv.config();
 
@@ -9,13 +9,13 @@ const app = express();
 app.use(express.json());
 
 // Routes
-app.use("/books", booksRoutes);
-app.use("/authors", authorsRoutes);
+app.use('/books', booksRoutes);
+app.use('/authors', authorsRoutes);
 
-const PORT: number = parseInt(process.env.PORT || "3000", 10);
+const PORT: number = parseInt(process.env.PORT || '3000', 10);
 
 if (isNaN(PORT)) {
-  console.error("Invalid PORT environment variable");
+  console.error('Invalid PORT environment variable');
   process.exit(1);
 }
 
