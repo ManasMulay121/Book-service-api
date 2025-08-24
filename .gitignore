@@ -1,12 +1,3 @@
-# Dependencies
-node_modules/
-
-# Build output
-dist/
-
-# Environment variables
-.env
-
-# OS generated files
-.DS_Store
-Thumbs.db
+container
+container/pgdata/
+server/pgdata/
