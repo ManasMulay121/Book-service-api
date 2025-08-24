@@ -1,6 +1,8 @@
 FROM node:20-alpine
-WORKDIR /server
+WORKDIR /app
 COPY package*.json .         
-RUN npm install
+COPY . .
+RUN yarn install
+RUN yarn build
 EXPOSE 8080
-CMD [ "node","dist/index.js" ]
+CMD [ "node","/app/dist/index.js" ]
