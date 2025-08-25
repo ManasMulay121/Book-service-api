@@ -1,12 +1,14 @@
 # Dependencies
 node_modules/
-*/node_modules/
+/.pnp
+.pnp.js
 
-# Build outputs
-dist/
-build/
-*/dist/
-*/build/
+# Testing
+/coverage
+
+# Production builds
+/build
+/dist
 
 # Environment variables
 .env
@@ -91,3 +93,13 @@ temp/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# React specific
+*.log
+*.tsbuildinfo
+
+# TypeScript
+*.tsbuildinfo
+
+# Optional: Uncomment if using Storybook
+# storybook-static
