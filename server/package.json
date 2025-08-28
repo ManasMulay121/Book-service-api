@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon src/index.ts",
-    "start": "node dist/index.js",
-    "build": "tsc"
+    "serve": "npx nodemon ./src/index.ts",
+    "start": "npx nodemon ./src/test.ts",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --check \"src/**/*.{ts,js,json,md}\"",
+    "format:fix": "prettier --write \"src/**/*.{ts,js,json,md}\""
   },
   "keywords": [],
   "author": "",
@@ -19,12 +22,9 @@
     "pg": "^8.16.3"
   },
   "devDependencies": {
-    "@types/connect": "^3.4.38",
-    "@types/express": "^5.0.3",
-    "@types/mime": "^4.0.0",
-    "@types/node": "^24.2.1",
-    "nodemon": "^3.1.10",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "@types/dotenv": "^8.2.3",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.13.14",
+    "ts-node": "^10.9.1"
   }
 }
