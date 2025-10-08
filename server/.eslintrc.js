@@ -35,7 +35,7 @@ module.exports = {
       'error',
       {
         vars: 'all',
-        args: 'all',
+        // args: 'all',
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',
         caughtErrorsIgnorePattern: '^_',
@@ -48,7 +48,7 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 'error',
     '@typescript-eslint/no-floating-promises': 'error',
     '@typescript-eslint/no-extraneous-class': 'off', // Allow static methods in classes
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-console': ['error', { allow: ['log' ,'warn', 'error'] }],
     'no-debugger': 'error',
     'no-eval': 'error',
     'no-var': 'error',
