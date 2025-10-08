@@ -23,7 +23,7 @@ const BookForm: React.FC = () => {
   const [formData, setFormData] = useState<Omit<Book, '_id'>>({
     title: '',
     authors: [],
-    published_year: new Date().getFullYear(),
+    published_year: 0, // Initialize with 0 instead of current year
   })
 
   const [availableAuthors, setAvailableAuthors] = useState<Author[]>([])
@@ -71,7 +71,6 @@ const BookForm: React.FC = () => {
       })
       setSelectedAuthors(authorNames) // Show names in UI
     } catch (err) {
-      setError('Failed to fetch book details')
       console.error('Error fetching book:', err)
     } finally {
       setLoading(false)
@@ -81,8 +80,8 @@ const BookForm: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     if (name === 'published_year') {
-      // Allow empty string temporarily, but convert to number
-      const numValue = value === '' ? new Date().getFullYear() : parseInt(value) || new Date().getFullYear()
+      // Convert to number if possible, otherwise use 0
+      const numValue = value === '' ? 0 : parseInt(value) || 0
       setFormData(prev => ({
         ...prev,
         [name]: numValue,
@@ -133,8 +132,8 @@ const BookForm: React.FC = () => {
     
     const cleanFormData: BookApiRequest = {
       title: formData.title,
-      authorIds: authorIds, // Backend expects 'authorIds' field
-      published_year: typeof formData.published_year === 'number' ? formData.published_year : parseInt(String(formData.published_year)) || new Date().getFullYear()
+      authorIds: authorIds,
+      published_year: formData.published_year
     }
 
     console.log('Original form data:', formData)
@@ -160,9 +159,10 @@ const BookForm: React.FC = () => {
         setSuccess('Book created successfully!')
       }
 
+      // Navigate to book list after successful operation
       setTimeout(() => {
-        navigate('/')
-      }, 1500)
+        navigate('/books', { state: { refresh: true } })
+      }, 1000)
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to save book')
       console.error('Error saving book:', err)
@@ -239,16 +239,17 @@ const BookForm: React.FC = () => {
               name="published_year"
               label="Published Year"
               type="text"
-              value={formData.published_year}
+              value={formData.published_year || ''}
               onChange={handleInputChange}
               fullWidth
               required
               variant="outlined"
               inputProps={{
-                pattern: "[0-9]*",
-                inputMode: "numeric"
+                style: { 
+                  WebkitAppearance: 'none',
+                  MozAppearance: 'textfield'
+                }
               }}
-              helperText={`Enter a year between 1000 and ${new Date().getFullYear()}`}
             />
           </Grid>
 

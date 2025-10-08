@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-  // Paper,
   Typography,
   Button,
   CircularProgress,
@@ -14,7 +13,6 @@ import { bookService, Book } from '../services/bookService'
 const BookList: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -45,23 +43,12 @@ const BookList: React.FC = () => {
     try {
       setLoading(true)
       const data = await bookService.getAllBooks()
-      console.log('Fetched books:', data) // Debug log
-      console.log('Books array length:', data?.length)
-      
-      // Log individual book structures
-      if (Array.isArray(data) && data.length > 0) {
-        console.log('First book structure:', data[0])
-        console.log('First book authors field:', data[0].authors, 'type:', typeof data[0].authors)
-      }
       
       // Ensure we always have an array
       const booksArray = Array.isArray(data) ? data : []
       setBooks(booksArray)
-      setError(null)
-      console.log('Books state after update should be:', booksArray)
     } catch (err) {
       console.error('Error fetching books:', err)
-      setError(`Failed to fetch books: ${err instanceof Error ? err.message : 'Unknown error'}`)
       setBooks([]) // Ensure we have an empty array on error
     } finally {
       setLoading(false)
@@ -74,7 +61,6 @@ const BookList: React.FC = () => {
         await bookService.deleteBook(id)
         setBooks(books.filter(book => book._id !== id))
       } catch (err) {
-        setError('Failed to delete book')
         console.error('Error deleting book:', err)
       }
     }
@@ -91,10 +77,8 @@ const BookList: React.FC = () => {
       filterable: false,
       renderCell: (params) => {
         const authors = params.value
-        console.log('Authors cell data:', authors, 'type:', typeof authors)
         
         if (Array.isArray(authors)) {
-          // Handle array of author objects or strings
           return authors.map(author => {
             if (typeof author === 'string') {
               return author
@@ -110,7 +94,6 @@ const BookList: React.FC = () => {
         } else if (authors && typeof authors === 'object' && authors.name) {
           return authors.name
         } else if (authors && typeof authors === 'object') {
-          // Handle single author object
           return authors.author_name || authors.title || JSON.stringify(authors)
         }
         return 'No authors'
@@ -162,32 +145,45 @@ const BookList: React.FC = () => {
         <Typography variant="h4" component="h1">
           Books
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => navigate('/add-book')}
-        >
-          Add New Book
-        </Button>
       </Box>
-      {error && (
-        <Box mb={2}>
-          <Typography color="error">{error}</Typography>
-        </Box>
-      )}
 
       <div style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={Array.isArray(books) ? books : []}
-          columns={columns}
-          getRowId={(row) => row._id || row.id || row.book_id}
-          hideFooter={true}
-          disableRowSelectionOnClick
-          disableColumnMenu
-          disableColumnFilter
-          disableColumnSelector
-          disableDensitySelector
-        />
+        {books.length === 0 ? (
+          <Box 
+            display="flex" 
+            flexDirection="column" 
+            alignItems="center" 
+            justifyContent="center" 
+            height="100%"
+          >
+            <Typography variant="h6" color="textSecondary" gutterBottom>
+              No books found
+            </Typography>
+            <Typography variant="body1" color="textSecondary" gutterBottom>
+              Try adding a new book
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => navigate('/add-book')}
+              sx={{ mt: 2 }}
+            >
+              Add New Book
+            </Button>
+          </Box>
+        ) : (
+          <DataGrid
+            rows={books}
+            columns={columns}
+            getRowId={(row) => row._id || row.id || row.book_id}
+            hideFooter={true}
+            disableRowSelectionOnClick
+            disableColumnMenu
+            disableColumnFilter
+            disableColumnSelector
+            disableDensitySelector
+          />
+        )}
       </div>
     </div>
   )

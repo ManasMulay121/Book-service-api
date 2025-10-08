@@ -107,17 +107,14 @@ const AuthorList: React.FC = () => {
 
   return (
     <div>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Authors Page
-      </Typography>
-      
-
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+        <Typography variant="h4" component="h1">
+          Authors List
+        </Typography>
+      </Box>
 
       <Paper sx={{ p: 2 }}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-          <Typography variant="h5" component="h2">
-            Authors List
-          </Typography>
           <Button
             variant="contained"
             color="primary"
