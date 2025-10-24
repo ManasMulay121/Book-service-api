@@ -6,9 +6,12 @@ import {
   CircularProgress,
   Box,
 } from '@mui/material'
-import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid'
+import {
+  DataGrid,
+  GridColDef,
+  GridActionsCellItem } from '@mui/x-data-grid'
 import { Edit, Delete } from '@mui/icons-material'
-import { bookService, Book } from '../services/bookService'
+import { bookService, Book } from '../services/book.service'
 
 const BookList: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([])
@@ -59,7 +62,9 @@ const BookList: React.FC = () => {
     if (window.confirm('Are you sure you want to delete this book?')) {
       try {
         await bookService.deleteBook(id)
-        setBooks(books.filter(book => book._id !== id))
+        setBooks(books.filter(book =>
+          book._id !== id && book.id !== id && book.book_id !== id
+        ))
       } catch (err) {
         console.error('Error deleting book:', err)
       }

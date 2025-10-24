@@ -1,17 +1,17 @@
 import express from 'express';
-import { auth } from '../Middleware/authMiddleware';
+import { authenticateJWT } from '../auth/auth.middleware';
 import {
   getAuthorCtrl,
   getAuthorByIdCtrl,
   createAuthorCtrl,
   updateAuthorCtrl,
   deleteAuthorCtrl,
-} from '../controllers/authorsController';
+} from './authors.controller';
 const router = express.Router();
 
 router.get('/', getAuthorCtrl);
 router.get('/:id', getAuthorByIdCtrl);
-router.post('/', auth, createAuthorCtrl);
-router.put('/:id', auth, updateAuthorCtrl);
-router.delete('/:id', auth, deleteAuthorCtrl);
+router.post('/', authenticateJWT, createAuthorCtrl);
+router.put('/:id', authenticateJWT, updateAuthorCtrl);
+router.delete('/:id', authenticateJWT, deleteAuthorCtrl);
 export default router;

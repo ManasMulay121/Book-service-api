@@ -2,11 +2,9 @@
 FROM node:18-alpine AS builder
 
 # ARG for build-time environment variables
-ARG VITE_API_KEY
 ARG VITE_API_URL
 
 # Set build-time environment variables
-ENV VITE_API_KEY=$VITE_API_KEY
 ENV VITE_API_URL=$VITE_API_URL
 
 WORKDIR /app
@@ -15,7 +13,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN yarn install
 
 # Copy source code
 COPY . .

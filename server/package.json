@@ -2,12 +2,12 @@
   "name": "bookserviceapi",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "npx nodemon ./src/index.ts",
-    "start": "npx nodemon ./src/test.ts",
+    "serve": "npx nodemon ./src/server.ts",
+    "start": "npx nodemon ./src/server.ts",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --check \"src/**/*.{ts,js,json,md}\"",
@@ -17,11 +17,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/pg": "^8.15.4",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3"
   },
   "devDependencies": {

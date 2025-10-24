@@ -1,7 +1,7 @@
-import pool from '../databasepg';
-import { authorQueries } from '../queries';
-import { ServiceReturn } from '../models/ServiceResult';
-import { author } from '../models/authors';
+import pool from '../../common/database.connection';
+import { authorQueries } from '../../common/database.queries';
+import { ServiceReturn } from '../../common/api.response';
+import { author } from './authors.model';
 
 export const getAuthors = async (): Promise<ServiceReturn<author[]>> => {
   try {

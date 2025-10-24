@@ -1,4 +1,5 @@
-import { author } from './authors';
+import { author } from '../authors/authors.model';
+
 export interface book {
   title: string;
   published_year: string;

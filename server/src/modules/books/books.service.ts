@@ -1,7 +1,7 @@
-import pool from '../databasepg';
-import { bookQueries } from '../queries';
-import { ServiceReturn } from '../models/ServiceResult';
-import { book } from '../models/books';
+import pool from '../../common/database.connection';
+import { bookQueries } from '../../common/database.queries';
+import { ServiceReturn } from '../../common/api.response';
+import { book } from './books.model';
 
 export const getBooks = async (): Promise<ServiceReturn<book[]>> => {
   try {

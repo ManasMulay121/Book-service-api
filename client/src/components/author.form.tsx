@@ -7,10 +7,9 @@ import {
   Button,
   Alert,
   Box,
-  Grid,
   CircularProgress,
 } from '@mui/material'
-import { authorService, Author } from '../services/authorService'
+import { authorService, Author } from '../services/author.service'
 
 const AuthorForm: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -88,10 +87,8 @@ const AuthorForm: React.FC = () => {
         <CircularProgress />
       </Box>
     )
-  }
-
-  return (
-    <Paper sx={{ p: 3, maxWidth: 600, mx: 'auto' }}>
+  }  return (
+    <Paper sx={{ p: 3, maxWidth: 600, mx: 'auto', mt: 3 }}>
       <Typography variant="h4" component="h1" gutterBottom>
         {isEdit ? 'Edit Author' : 'Add New Author'}
       </Typography>
@@ -109,53 +106,47 @@ const AuthorForm: React.FC = () => {
       )}
 
       <Box component="form" onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              name="name"
-              label="Author Name"
-              value={formData.name}
-              onChange={handleInputChange}
-              fullWidth
-              required
-              variant="outlined"
-            />
-          </Grid>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <TextField
+            name="name"
+            label="Author Name"
+            value={formData.name}
+            onChange={handleInputChange}
+            fullWidth
+            required
+            variant="outlined"
+          />
 
-          <Grid item xs={12}>
-            <TextField
-              name="bio"
-              label="Biography"
-              value={formData.bio}
-              onChange={handleInputChange}
-              fullWidth
-              multiline
-              rows={6}
-              variant="outlined"
-              placeholder="Tell us about this author..."
-            />
-          </Grid>
+          <TextField
+            name="bio"
+            label="Biography"
+            value={formData.bio}
+            onChange={handleInputChange}
+            fullWidth
+            multiline
+            rows={6}
+            variant="outlined"
+            placeholder="Tell us about this author..."
+          />
 
-          <Grid item xs={12}>
-            <Box display="flex" gap={2} justifyContent="flex-end">
-              <Button
-                type="button"
-                variant="outlined"
-                onClick={() => navigate('/authors')}
-                disabled={loading}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={loading}
-              >
-                {loading ? <CircularProgress size={24} /> : (isEdit ? 'Update' : 'Create')}
-              </Button>
-            </Box>
-          </Grid>
-        </Grid>
+          <Box display="flex" gap={2} justifyContent="flex-end" sx={{ mt: 2 }}>
+            <Button
+              type="button"
+              variant="outlined"
+              onClick={() => navigate('/authors')}
+              disabled={loading}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={loading}
+            >
+              {loading ? <CircularProgress size={24} /> : (isEdit ? 'Update' : 'Create')}
+            </Button>
+          </Box>
+        </Box>
       </Box>
     </Paper>
   )

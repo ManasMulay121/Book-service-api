@@ -10,7 +10,7 @@ import {
   CircularProgress,
 } from '@mui/material'
 import { Edit, ArrowBack } from '@mui/icons-material'
-import { authorService, Author } from '../services/authorService'
+import { authorService, Author } from '../services/author.service'
 
 const AuthorDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()

@@ -15,6 +15,14 @@ build/
 .env.test.local
 .env.production.local
 
+# SSL Certificates (keep these secure and local)
+certs/
+*.pem
+*.key
+*.crt
+*.csr
+mkcert-*
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

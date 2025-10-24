@@ -7,13 +7,12 @@ import {
   Button,
   Alert,
   Box,
-  Grid,
   CircularProgress,
   Autocomplete,
   Chip,
 } from '@mui/material'
-import { bookService, Book, BookApiRequest } from '../services/bookService'
-import { authorService, Author } from '../services/authorService'
+import { bookService, Book, BookApiRequest } from '../services/book.service'
+import { authorService, Author } from '../services/author.service'
 
 const BookForm: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -180,7 +179,7 @@ const BookForm: React.FC = () => {
   }
 
   return (
-    <Paper sx={{ p: 3, maxWidth: 600, mx: 'auto' }}>
+    <Paper sx={{ p: 3, maxWidth: 600, mx: 'auto', mt: 3 }}>
       <Typography variant="h4" component="h1" gutterBottom>
         {isEdit ? 'Edit Book' : 'Add New Book'}
       </Typography>
@@ -198,81 +197,72 @@ const BookForm: React.FC = () => {
       )}
 
       <Box component="form" onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              name="title"
-              label="Title"
-              value={formData.title}
-              onChange={handleInputChange}
-              fullWidth
-              required
-              variant="outlined"
-            />
-          </Grid>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <TextField
+            name="title"
+            label="Title"
+            value={formData.title}
+            onChange={handleInputChange}
+            fullWidth
+            required
+            variant="outlined"
+          />
 
-          <Grid item xs={12}>
-            <Autocomplete
-              multiple
-              options={availableAuthors.map(author => author.name)}
-              value={selectedAuthors}
-              onChange={handleAuthorsChange}
-              renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                  <Chip variant="outlined" label={option} {...getTagProps({ index })} />
-                ))
-              }
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  label="Authors"
-                  placeholder="Select or type author names"
-                />
-              )}
-              freeSolo
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <TextField
-              name="published_year"
-              label="Published Year"
-              type="text"
-              value={formData.published_year || ''}
-              onChange={handleInputChange}
-              fullWidth
-              required
-              variant="outlined"
-              inputProps={{
-                style: { 
-                  WebkitAppearance: 'none',
-                  MozAppearance: 'textfield'
-                }
-              }}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Box display="flex" gap={2} justifyContent="flex-end">
-              <Button
-                type="button"
+          <Autocomplete
+            multiple
+            options={availableAuthors.map(author => author.name)}
+            value={selectedAuthors}
+            onChange={handleAuthorsChange}
+            renderTags={(value, getTagProps) =>
+              value.map((option, index) => (
+                <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+              ))
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
                 variant="outlined"
-                onClick={() => navigate('/')}
-                disabled={loading}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={loading}
-              >
-                {loading ? <CircularProgress size={24} /> : (isEdit ? 'Update' : 'Create')}
-              </Button>
-            </Box>
-          </Grid>
-        </Grid>
+                label="Authors"
+                placeholder="Select or type author names"
+              />
+            )}
+          />
+
+          <TextField
+            name="published_year"
+            label="Published Year"
+            type="text"
+            value={formData.published_year || ''}
+            onChange={handleInputChange}
+            fullWidth
+            required
+            variant="outlined"
+            inputProps={{
+              style: { 
+                WebkitAppearance: 'none',
+                MozAppearance: 'textfield'
+              }
+            }}
+          />
+
+          <Box display="flex" gap={2} justifyContent="flex-end" sx={{ mt: 2 }}>
+            <Button
+              type="button"
+              variant="outlined"
+              onClick={() => navigate('/')}
+              disabled={loading}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={loading}
+            >
+              {loading ? <CircularProgress size={24} /> : (isEdit ? 'Update' : 'Create')}
+            </Button>
+          </Box>
+        </Box>
       </Box>
     </Paper>
   )

@@ -20,3 +20,15 @@ CREATE TABLE book_author (
     author_id UUID REFERENCES author(author_id) ON UPDATE CASCADE,
     PRIMARY KEY (book_id, author_id)
 );
+
+CREATE TABLE users (
+    username VARCHAR(100) PRIMARY KEY UNIQUE NOT NULL,
+    password_hash VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO users (username, password_hash) 
+values (
+    'User_12093',
+    '$2b$10$kAh24xkV3o.IcfoOcInhtOA/J2gk2WVrLH.ggWKHGnUhOfWmMnwQC'
+)
