@@ -150,6 +150,16 @@ const BookList: React.FC = () => {
         <Typography variant="h4" component="h1">
           Books
         </Typography>
+        <Box display="flex" gap={2}>
+          {/* Add Book Button */}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate('/add-book')}
+          >
+            Add Book
+          </Button>
+        </Box>
       </Box>
 
       <div style={{ height: 400, width: '100%' }}>

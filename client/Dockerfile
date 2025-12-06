@@ -9,11 +9,11 @@ ENV VITE_API_URL=$VITE_API_URL
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy package files and yarn lock
+COPY package*.json yarn.lock ./
 
-# Install dependencies
-RUN yarn install
+# Install dependencies with retry and timeout settings
+RUN yarn install --frozen-lockfile --network-timeout 100000 --network-concurrency 1
 
 # Copy source code
 COPY . .
