@@ -47,3 +47,10 @@ export const bookQueries = {
   CHECK_AUTHOR: `SELECT * FROM author WHERE author_id = $1`,
   INSERT_BOOK_AUTHOR: `INSERT INTO book_author(book_id, author_id) VALUES ($1, $2)`,
 };
+
+export const loginQueries = {
+  USERQUERY: `SELECT 
+        username, password_hash 
+        FROM users 
+        WHERE username = $1`,
+};

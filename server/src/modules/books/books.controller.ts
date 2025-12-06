@@ -5,7 +5,7 @@ import {
   createBook,
   updateBook,
   deleteBook,
-} from '../services/bookService';
+} from './books.service';
 
 export const getBooksCtrl = async (
   req: Request,

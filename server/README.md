@@ -55,12 +55,27 @@ A RESTful API for managing books and authors built with Node.js, Express, TypeSc
 
 ```
 src/
-├── controllers/     # Route handlers
-├── models/         # Data models
-├── routes/         # API routes
-├── database.sql    # Database schema
-├── databasepg.ts   # Database connection
-└── index.ts        # Application entry point
+├── common/                        # Shared utilities and types
+│   ├── api.types.ts              # Centralized API response types
+│   ├── database.connection.ts     # Database connection utilities
+│   └── database.queries.ts       # Common SQL queries
+├── modules/                       # Feature modules
+│   ├── auth/                     # Authentication module
+│   │   ├── auth.controller.ts    # JWT authentication controller
+│   │   ├── auth.middleware.ts    # JWT verification middleware
+│   │   └── auth.routes.ts        # Authentication routes
+│   ├── authors/                  # Authors module
+│   │   ├── authors.controller.ts # Author CRUD operations
+│   │   ├── authors.model.ts      # Author data model
+│   │   ├── authors.routes.ts     # Author API routes
+│   │   └── authors.service.ts    # Author business logic
+│   └── books/                    # Books module
+│       ├── books.controller.ts   # Book CRUD operations
+│       ├── books.model.ts        # Book data model
+│       ├── books.routes.ts       # Book API routes
+│       └── books.service.ts      # Book business logic
+├── database.sql                  # Database schema
+└── server.ts                     # Application entry point
 ```
 
 ## Scripts

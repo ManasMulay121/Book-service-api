@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { authService } from './auth.service'
 
 export interface Book {
   _id?: string
@@ -23,11 +24,22 @@ const API_BASE_URL = window.location.origin + '/api'
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'x-api-key': import.meta.env.VITE_API_KEY,
     'Cache-Control': 'no-cache',
     'Pragma': 'no-cache'
   }
 })
+
+// Add request interceptor to include JWT token for protected routes
+api.interceptors.request.use((config) => {
+  // Add JWT token for protected routes (POST, PUT, DELETE)
+  if (config.method && ['post', 'put', 'delete'].includes(config.method.toLowerCase())) {
+    const authHeaders = authService.getAuthHeaders();
+    Object.entries(authHeaders).forEach(([key, value]) => {
+      config.headers.set(key, value);
+    });
+  }
+  return config;
+});
 
 export const bookService = {
   getAllBooks: async (): Promise<Book[]> => {

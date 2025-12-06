@@ -9,7 +9,7 @@ import {
   Box,
 } from '@mui/material'
 import { Edit, Delete } from '@mui/icons-material'
-import { authorService, Author } from '../services/authorService'
+import { authorService, Author } from '../services/author.service'
 
 const AuthorList: React.FC = () => {
   const [authors, setAuthors] = useState<Author[]>([])

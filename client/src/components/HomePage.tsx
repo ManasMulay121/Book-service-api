@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Typography, Container, Card, Grid, Button } from '@mui/material'
+import { Box, Typography, Container, Card, Button } from '@mui/material'
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate()
@@ -49,8 +49,14 @@ const HomePage: React.FC = () => {
           Welcome to your digital library management system
         </Typography>
 
-        <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={12} sm={6}>
+        <Box sx={{ 
+          display: 'flex', 
+          gap: 4, 
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          maxWidth: 800
+        }}>
+          <Box sx={{ flex: '1 1 300px', minWidth: 300 }}>
             <Card
               sx={{
                 p: 3,
@@ -79,9 +85,9 @@ const HomePage: React.FC = () => {
                 View Books
               </Button>
             </Card>
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} sm={6}>
+          <Box sx={{ flex: '1 1 300px', minWidth: 300 }}>
             <Card
               sx={{
                 p: 3,
@@ -110,8 +116,8 @@ const HomePage: React.FC = () => {
                 View Authors
               </Button>
             </Card>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Box>
     </Container>
   )

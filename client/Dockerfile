@@ -2,20 +2,18 @@
 FROM node:18-alpine AS builder
 
 # ARG for build-time environment variables
-ARG VITE_API_KEY
 ARG VITE_API_URL
 
 # Set build-time environment variables
-ENV VITE_API_KEY=$VITE_API_KEY
 ENV VITE_API_URL=$VITE_API_URL
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy package files and yarn lock
+COPY package*.json yarn.lock ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies with retry and timeout settings
+RUN yarn install --frozen-lockfile --network-timeout 100000 --network-concurrency 1
 
 # Copy source code
 COPY . .

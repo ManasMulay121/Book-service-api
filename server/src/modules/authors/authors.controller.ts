@@ -5,7 +5,7 @@ import {
   createAuthor,
   updateAuthor,
   deleteAuthor,
-} from '../services/authorService';
+} from './authors.service';
 
 export const getAuthorCtrl = async (
   req: Request,

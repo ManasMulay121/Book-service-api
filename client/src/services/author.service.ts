@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { authService } from './auth.service'
 
 export interface Author {
   _id?: string
@@ -12,16 +13,26 @@ export interface Author {
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '/api'
 console.log('API Base URL:', API_BASE_URL)
-console.log('API Key:', import.meta.env.VITE_API_KEY)
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'x-api-key': import.meta.env.VITE_API_KEY,
     'Cache-Control': 'no-cache',
     'Pragma': 'no-cache'
   }
 })
+
+// Add request interceptor to include JWT token for protected routes
+api.interceptors.request.use((config) => {
+  // Add JWT token for protected routes (POST, PUT, DELETE)
+  if (config.method && ['post', 'put', 'delete'].includes(config.method.toLowerCase())) {
+    const authHeaders = authService.getAuthHeaders();
+    Object.entries(authHeaders).forEach(([key, value]) => {
+      config.headers.set(key, value);
+    });
+  }
+  return config;
+});
 
 export const authorService = {
   getAllAuthors: async (): Promise<Author[]> => {
@@ -48,7 +59,6 @@ export const authorService = {
   createAuthor: async (author: Omit<Author, '_id' | 'created_at' | 'updated_at'>): Promise<Author> => {
     try {
       console.log('Creating author with data:', author);
-      console.log('Using API key:', import.meta.env.VITE_API_KEY);
       console.log('API URL:', API_BASE_URL);
       
       const response = await api.post('/authors', author);

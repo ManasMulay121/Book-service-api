@@ -10,7 +10,7 @@ import {
   CircularProgress,
 } from '@mui/material'
 import { Edit, ArrowBack } from '@mui/icons-material'
-import { bookService, Book } from '../services/bookService'
+import { bookService, Book } from '../services/book.service'
 
 const BookDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
